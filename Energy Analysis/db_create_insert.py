@@ -10,7 +10,7 @@ DROP TABLE IF EXISTS public.energy_production_by_month;
 
 CREATE TABLE IF NOT EXISTS public.energy_production_by_month
 (
-    year_month integer NOT NULL,
+    year_month integer NOT NULL PRIMARY KEY,
     total_fossil_fuels_production real,
     nuclear_electric_power_production real,
     total_renewable_energy_production real,
@@ -23,7 +23,6 @@ CREATE TABLE IF NOT EXISTS public.energy_production_by_month
     nuclear_electric_power_consumption real,
     total_renewable_energy_consumption real,
     total_primary_energy_consumption real,
-    CONSTRAINT year_month_pkey PRIMARY KEY (year_month),
     CONSTRAINT energy_production_by_month_year_month_key UNIQUE (year_month)
 )
 
@@ -43,3 +42,5 @@ with open('Energy Analysis/Primary_Energy_Overview_yyyymm.csv', 'r') as filedata
     cur.copy_from(filedata, 'energy_production_by_month', sep=',')
 
 conn.commit()
+
+print("Successfully created table")
